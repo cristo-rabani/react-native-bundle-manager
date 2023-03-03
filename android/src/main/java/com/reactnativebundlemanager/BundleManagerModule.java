@@ -81,8 +81,13 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
 
   }
   @ReactMethod
-  public void setPackagerHost(String hostAddress) throws MalformedURLException {
-    URL url = new URL(hostAddress);
+  public void setPackagerHost(String hostAddress) {
+    URL url = null;
+    try {
+      url = new URL(hostAddress);
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
     String host = url.getHost() + ':' + url.getPort();
     Log.i(TAG, "Setting host: " + host);
     reactContext.getCurrentActivity().runOnUiThread(new Runnable() {

@@ -1,3 +1,5 @@
+/** @format */
+
 import { NativeModules } from 'react-native';
 
 export type RunningMode = 'LOCAL' | 'REMOTE';
