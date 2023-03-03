@@ -23,7 +23,7 @@ public class BundleManagerPackage implements ReactPackage {
     ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new BundleManager(reactContext));
+    modules.add(new BundleManagerModule(reactContext));
 
     return modules;
   }

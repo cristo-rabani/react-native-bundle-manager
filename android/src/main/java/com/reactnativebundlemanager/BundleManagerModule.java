@@ -18,14 +18,14 @@ import java.net.URL;
 
 import com.facebook.react.devsupport.DevInternalSettings;
 
-public class BundleManager extends ReactContextBaseJavaModule {
+public class BundleManagerModule extends ReactContextBaseJavaModule {
   private static final String TAG = "BundleManager";
   ReactInstanceManager instanceManager;
   ReactApplication reactApplication;
   ReactApplicationContext reactContext;
   DevInternalSettings mDevSetting;
 
-  BundleManager(ReactApplicationContext context) {
+  BundleManagerModule(ReactApplicationContext context) {
     super(context);
     reactContext = context;
     reactApplication = (ReactApplication) context.getApplicationContext();
@@ -67,14 +67,13 @@ public class BundleManager extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void load(String urlAddress) throws MalformedURLException {
-      URL url = new URL(urlAddress);
+  public void load(String urlAddress) {
       Log.i(TAG, "Load bundle from server: " + urlAddress);
 
       reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          instanceManager.getDevSupportManager().reloadJSFromServer(url.toString();
+          instanceManager.getDevSupportManager().reloadJSFromServer(urlAddress);
           Log.i(TAG, "rel: " + instanceManager.getDevSupportManager().getDownloadedJSBundleFile());
           instanceManager.recreateReactContextInBackground();
         }
