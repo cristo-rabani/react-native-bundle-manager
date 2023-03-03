@@ -8,7 +8,7 @@
 		<buildCommand>
 			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
 			<arguments>
-			</arguments>
+			</arguments
 		</buildCommand>
 	</buildSpec>
 	<natures>

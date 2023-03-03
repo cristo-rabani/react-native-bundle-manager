@@ -102,7 +102,7 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
   @NonNull
   @Override
   public String getName() {
-    return "BundleManager";
+    return "BundleManagerModule";
   }
 }
 
