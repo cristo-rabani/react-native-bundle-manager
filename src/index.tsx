@@ -1,4 +1,6 @@
-/** @format */
+/**
+ * @format
+ */
 
 import { NativeModules } from 'react-native';
 
@@ -11,5 +13,7 @@ type BundleManagerType = {
 };
 
 const { BundleManagerModule } = NativeModules;
+
+console.log('BundleManagerModule', BundleManagerModule)
 
 export default BundleManagerModule as BundleManagerType;

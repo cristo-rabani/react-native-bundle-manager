@@ -1,6 +1,7 @@
 package com.reactnativebundlemanager;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -14,13 +15,14 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
         super(application);
     }
 
-//    protected ReactInstanceManager createReactInstanceManager() {
-//        ReactInstanceManager rim = super.createReactInstanceManager();
-//        File file = new File(rim.getDevSupportManager().getDownloadedJSBundleFile());
-////        if(file.exists()){
-////            file.delete();
-////        }
-//        return rim;
-//    }
+    protected ReactInstanceManager createReactInstanceManager() {
+        ReactInstanceManager rim = super.createReactInstanceManager();
+        Log.i(TAG, "createReactInstanceManager: " + rim.getDevSupportManager().getDownloadedJSBundleFile());
+        File file = new File(rim.getDevSupportManager().getDownloadedJSBundleFile());
+        if(file.exists()){
+            file.delete();
+        }
+        return rim;
+    }
 
 }

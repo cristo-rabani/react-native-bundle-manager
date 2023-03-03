@@ -82,21 +82,23 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void setPackagerHost(String hostAddress) {
-    URL url = null;
     try {
-      url = new URL(hostAddress);
+      URL url = new URL(hostAddress);
+      if(!validIP(url.getHost())) {
+        return;
+      }
+      String host = url.getHost() + ':' + url.getPort();
+      Log.i(TAG, "Setting host: " + host);
+      reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          mDevSetting.getPackagerConnectionSettings().setDebugServerHost(host);
+          instanceManager.recreateReactContextInBackground();
+        }
+      });
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
-    String host = url.getHost() + ':' + url.getPort();
-    Log.i(TAG, "Setting host: " + host);
-    reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        mDevSetting.getPackagerConnectionSettings().setDebugServerHost(host);
-        instanceManager.recreateReactContextInBackground();
-      }
-    });
   }
 
   @NonNull
