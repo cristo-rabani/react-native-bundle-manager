@@ -15,7 +15,8 @@ yarn add react-native-bundle-manager
 in `android/app/src/main/java/<yourAppId>/MainApplication.java`
 find line `private final ReactNativeHost mReactNativeHost`
 Replace instance of  `new ReactNativeHost(this) {` on `new ReactNativeBundleManagerHost(this) {` 
-![](../../Downloads/replace.png)
+<img width="841" alt="replace" src="https://user-images.githubusercontent.com/2906283/222664223-fe6d3f9d-35f7-4f43-b7b5-632a8e513add.png">
+
 
 
 ## Usage
