@@ -24,18 +24,21 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
   ReactApplication reactApplication;
   ReactApplicationContext reactContext;
   DevInternalSettings mDevSetting;
+  ReactNativeBundleManagerHost nativeHost;
 
   BundleManagerModule(ReactApplicationContext context) {
     super(context);
     reactContext = context;
     reactApplication = (ReactApplication) context.getApplicationContext();
-    instanceManager = reactApplication.getReactNativeHost().getReactInstanceManager();
+    nativeHost = (ReactNativeBundleManagerHost) reactApplication.getReactNativeHost();
     mDevSetting = new DevInternalSettings((Context) reactApplication, new DevInternalSettings.Listener() {
       @Override
       public void onInternalSettingsChanged() {
         instanceManager.recreateReactContextInBackground();
       }
     });
+    
+
   }
 
 
@@ -85,6 +88,7 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
     try {
       URL url = new URL(hostAddress);
       if(!validIP(url.getHost())) {
+        Log.i(TAG, "STOP: No valid url: " + hostAddress);
         return;
       }
       String host = url.getHost() + ':' + url.getPort();
