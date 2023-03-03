@@ -1,6 +1,11 @@
 require "json"
 
-package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+
+package = JSON.parse(
+    File.read(
+        File.join(File.dirname(__dir__), "package.json")
+    )
+)
 
 Pod::Spec.new do |s|
   s.name         = "react-native-bundle-manager"
@@ -14,7 +19,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/cristo-rabani/react-native-bundle-manager.git", :tag => "#{s.version}" }
 
 
-  s.source_files = "ios/**/*.{h,m,mm}"
+  s.source_files = "**/*.{h,m,mm}"
 
 
   s.dependency "React"

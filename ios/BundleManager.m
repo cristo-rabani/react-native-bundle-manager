@@ -12,6 +12,12 @@ RCT_EXPORT_MODULE()
   [_bridge reload];
 }
 
+- (void)setHost:(NSString *)host
+{
+  [_bridge setValue:url forKey:@"bundleURL"];
+  [_bridge reload];
+}
+
 RCT_EXPORT_METHOD(
                   runningMode:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
@@ -19,6 +25,17 @@ RCT_EXPORT_METHOD(
   NSString *scheme = [[_bridge bundleURL] scheme];
   BOOL isRemote = [scheme isEqualToString:@"https"];
   resolve(isRemote ? @"REMOTE" : @"LOCAL");
+}
+
+RCT_EXPORT_METHOD(setPackagerHost:(NSString*) host) {
+  if ([NSThread isMainThread]) {
+    [self setHost:host];
+  } else {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self setHost:host];
+    });
+  }
+  return;
 }
 
 RCT_EXPORT_METHOD(load:(NSURL*) url) {
