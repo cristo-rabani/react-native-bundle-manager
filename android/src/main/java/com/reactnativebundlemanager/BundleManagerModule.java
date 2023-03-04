@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -20,7 +21,6 @@ import com.facebook.react.devsupport.DevInternalSettings;
 
 public class BundleManagerModule extends ReactContextBaseJavaModule {
   private static final String TAG = "BundleManager";
-  ReactInstanceManager instanceManager;
   ReactApplication reactApplication;
   ReactApplicationContext reactContext;
   DevInternalSettings mDevSetting;
@@ -34,7 +34,7 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
     mDevSetting = new DevInternalSettings((Context) reactApplication, new DevInternalSettings.Listener() {
       @Override
       public void onInternalSettingsChanged() {
-        instanceManager.recreateReactContextInBackground();
+        nativeHost.getReactInstanceManager().recreateReactContextInBackground();
       }
     });
   }
@@ -68,21 +68,22 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void load(String urlAddress) {
+  public void load(String urlAddress, Promise promise) {
       Log.i(TAG, "Load bundle from server: " + urlAddress);
 
       reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
+          ReactInstanceManager instanceManager = nativeHost.getReactInstanceManager();
+          promise.resolve(urlAddress);
           instanceManager.getDevSupportManager().reloadJSFromServer(urlAddress);
           Log.i(TAG, "rel: " + instanceManager.getDevSupportManager().getDownloadedJSBundleFile());
-          instanceManager.recreateReactContextInBackground();
         }
       });
 
   }
   @ReactMethod
-  public void setPackagerHost(String hostAddress) {
+  public void setPackagerHost(String hostAddress, Promise promise) {
     try {
       URL url = new URL(hostAddress);
       if(!validIP(url.getHost())) {
@@ -95,11 +96,13 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
         @Override
         public void run() {
           mDevSetting.getPackagerConnectionSettings().setDebugServerHost(host);
-          instanceManager.recreateReactContextInBackground();
+          promise.resolve(host);
+          nativeHost.getReactInstanceManager().recreateReactContextInBackground();
         }
       });
     } catch (MalformedURLException e) {
       e.printStackTrace();
+      promise.reject("Bad host address");
     }
   }
 

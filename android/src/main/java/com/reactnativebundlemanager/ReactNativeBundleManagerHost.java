@@ -26,10 +26,10 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
         super(application);
     }
 
-//    @Override
-//    protected String getJSMainModuleName() {
-//        return "index";
-//    }
+   @Override
+   protected String getJSMainModuleName() {
+       return "index";
+   }
 
 
     @Override
@@ -37,14 +37,14 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
         ReactInstanceManager rim = super.createReactInstanceManager();
         devManager = rim.getDevSupportManager();
 
-        File file = new File(devManager.getDownloadedJSBundleFile());
-        if(file.exists()){
-            Log.i(TAG, "remove bundle file: "  + file.getAbsolutePath());
-            file.delete();
-        } else {
-            Log.i(TAG, "No file under: " + file.getAbsolutePath());
-        }
-        devManager.handleReloadJS();
+//         File file = new File(devManager.getDownloadedJSBundleFile());
+//         if(file.exists()){
+//             Log.i(TAG, "remove bundle file: "  + file.getAbsolutePath());
+//             file.delete();
+//         } else {
+//             Log.i(TAG, "No file under: " + file.getAbsolutePath());
+//         }
+//         devManager.handleReloadJS();
         return rim;
     }
 
@@ -53,7 +53,7 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
     protected String getBundleAssetName() {
         String assetName = super.getBundleAssetName();
         Log.i(TAG, "assetName " + assetName);
-        return  "index.android.bundle";
+        return  assetName;
     }
 
     @Nullable
