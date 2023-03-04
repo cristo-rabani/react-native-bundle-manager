@@ -37,14 +37,13 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
         ReactInstanceManager rim = super.createReactInstanceManager();
         devManager = rim.getDevSupportManager();
 
-//         File file = new File(devManager.getDownloadedJSBundleFile());
-//         if(file.exists()){
-//             Log.i(TAG, "remove bundle file: "  + file.getAbsolutePath());
-//             file.delete();
-//         } else {
-//             Log.i(TAG, "No file under: " + file.getAbsolutePath());
-//         }
-//         devManager.handleReloadJS();
+         File file = new File(devManager.getDownloadedJSBundleFile());
+         if(file.exists()){
+             Log.i(TAG, "remove bundle file: "  + file.getAbsolutePath());
+             file.delete();
+         } else {
+             Log.i(TAG, "No file under: " + file.getAbsolutePath());
+         }
         return rim;
     }
 
