@@ -37,8 +37,6 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
         instanceManager.recreateReactContextInBackground();
       }
     });
-    
-
   }
 
 
