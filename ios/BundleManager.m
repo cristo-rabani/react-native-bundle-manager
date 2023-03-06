@@ -9,12 +9,14 @@ RCT_EXPORT_MODULE()
 - (void)loadBundle:(NSURL *)url
 {
   [_bridge setValue:url forKey:@"bundleURL"];
+    
   [_bridge reload];
 }
 
 - (void)setHost:(NSString *)host
 {
-  [_bridge setValue:url forKey:@"bundleURL"];
+  [_bridge setValue:host forKey:@"bundleURL"];
+  NSLog([NSString stringWithFormat:@"setHost%@", host]);
   [_bridge reload];
 }
 
@@ -39,6 +41,7 @@ RCT_EXPORT_METHOD(setPackagerHost:(NSString*) host) {
 }
 
 RCT_EXPORT_METHOD(load:(NSURL*) url) {
+    NSLog([NSString stringWithFormat:@"setHost%@", url.absoluteURL]);
   if ([NSThread isMainThread]) {
     [self loadBundle:url];
   } else {

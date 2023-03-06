@@ -2,7 +2,7 @@
  * @format
  */
 
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 export type RunningMode = 'LOCAL' | 'REMOTE';
 
@@ -12,8 +12,16 @@ type BundleManagerType = {
   runningMode(): Promise<RunningMode>;
 };
 
-const { BundleManagerModule } = NativeModules;
+let loader;
 
-console.log('BundleManagerModule', BundleManagerModule);
 
-export default BundleManagerModule as BundleManagerType;
+if (Platform.OS === 'android') {
+  const { BundleManagerModule } = NativeModules;
+  loader = BundleManagerModule;
+} else {
+  const { BundleManager } = NativeModules;
+  loader = BundleManager;
+}
+console.log('BundleManagerModule', loader);
+
+export default loader as BundleManagerType;
