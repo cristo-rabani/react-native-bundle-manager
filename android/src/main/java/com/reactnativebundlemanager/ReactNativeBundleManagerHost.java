@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactInstanceManagerBuilder;
-import com.facebook.react.ReactNativeHost;
+import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JSBundleLoader;
 import com.facebook.react.bridge.ReactMarker;
@@ -19,7 +19,7 @@ import com.facebook.react.devsupport.interfaces.DevSupportManager;
 import java.io.File;
 
 
-public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
+public abstract class ReactNativeBundleManagerHost extends DefaultReactNativeHost {
     private static final String TAG = "BundleManager";
     private DevSupportManager devManager;
     public ReactNativeBundleManagerHost(Application application) {
@@ -51,7 +51,6 @@ public abstract class ReactNativeBundleManagerHost extends ReactNativeHost {
     @Override
     protected String getBundleAssetName() {
         String assetName = super.getBundleAssetName();
-        Log.i(TAG, "assetName " + assetName);
         return  assetName;
     }
 
