@@ -85,6 +85,9 @@ public class BundleManagerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void setPackagerHost(String hostAddress, Promise promise) {
     try {
+      if (!hostAddress.startsWith("http")) {
+        hostAddress = "http://" + hostAddress;
+      }
       URL url = new URL(hostAddress);
       if(!validIP(url.getHost())) {
         Log.i(TAG, "STOP: No valid url: " + hostAddress);

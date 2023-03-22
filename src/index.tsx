@@ -12,7 +12,6 @@ type BundleManagerType = {
   runningMode(): Promise<RunningMode>;
 };
 
-
 const { BundleManagerModule } = NativeModules;
 
 export default BundleManagerModule as BundleManagerType;

@@ -1,4 +1,5 @@
 #import "BundleManager.h"
+#import "RCTBundleURLProvider.h"
 
 @implementation BundleManager
 
@@ -9,13 +10,13 @@ RCT_EXPORT_MODULE(BundleManagerModule)
 - (void)loadBundle:(NSURL *)url
 {
   [_bridge setValue:url forKey:@"bundleURL"];
-    
+
   [_bridge reload];
 }
 
-- (void)setHost:(NSURL *)host
+- (void)setHost:(NSString *)host
 {
-  [_bridge setValue:host forKey:@"bundleURL"];
+  [[RCTBundleURLProvider sharedSettings] setJsLocation:host];
   [_bridge reload];
 }
 
@@ -29,7 +30,7 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-                  setPackagerHost:(NSURL*) host
+                  setPackagerHost:(NSString*) host
                   resolver:(RCTPromiseResolveBlock)resolve
                   ejecter:(RCTPromiseRejectBlock)reject
 ) {
