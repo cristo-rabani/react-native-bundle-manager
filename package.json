@@ -1,6 +1,6 @@
 {
   "name": "react-native-bundle-manager",
-  "version": "0.70.3",
+  "version": "0.70.4",
   "description": "Allows to set packager host or load remote bundle via https URL.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
